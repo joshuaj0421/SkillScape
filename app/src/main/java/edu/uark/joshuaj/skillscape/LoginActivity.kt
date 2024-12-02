@@ -1,5 +1,6 @@
 package edu.uark.joshuaj.skillscape
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -13,16 +14,31 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
+        // Initialize FirebaseAuth
         auth = FirebaseAuth.getInstance()
+
+        // Check if the user is already logged in
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            // User is logged in, extract username and navigate to GamePickerActivity
+            val email = currentUser.email ?: ""
+            val username = email.substringBefore("@")
+            val intent = Intent(this, GamePickerActivity::class.java)
+            intent.putExtra("username", username)
+            startActivity(intent)
+            finish() // Close LoginActivity
+            return
+        }
+
+        // Set the content view for login screen if user is not logged in
+        setContentView(R.layout.activity_login)
 
         val emailEditText = findViewById<EditText>(R.id.emailEditText)
         val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
         val loginButton = findViewById<Button>(R.id.loginButton)
         val registerButton = findViewById<Button>(R.id.registerButton)
 
-        // Login button click listener
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
@@ -36,13 +52,18 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+                        // Extract username and redirect to GamePickerActivity
+                        val username = email.substringBefore("@")
+                        val intent = Intent(this, GamePickerActivity::class.java)
+                        intent.putExtra("username", username)
+                        startActivity(intent)
+                        finish() // Close LoginActivity
                     } else {
                         Toast.makeText(this, "Login Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
         }
 
-        // Register button click listener
         registerButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()

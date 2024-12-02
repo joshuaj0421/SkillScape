@@ -1,17 +1,32 @@
 package edu.uark.joshuaj.skillscape
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import com.google.firebase.auth.FirebaseAuth
 
 class GamePickerActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_picker)
 
-        // Get references to buttons and text view
+        // Initialize Firebase Auth
+        auth = FirebaseAuth.getInstance()
+
+        // Set up the Toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = "SkillScape"
+
+        // Game picker buttons
         val square1 = findViewById<Button>(R.id.square1)
         val square2 = findViewById<Button>(R.id.square2)
         val square3 = findViewById<Button>(R.id.square3)
@@ -39,5 +54,29 @@ class GamePickerActivity : AppCompatActivity() {
         square6.setOnClickListener {
             squareClickedText.text = "Square 6 clicked"
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+
+        // Set the username dynamically in the menu
+        val usernameItem = menu?.findItem(R.id.action_username)
+        val username = intent.getStringExtra("username") ?: "Player"
+        usernameItem?.title = username
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_logout -> {
+                auth.signOut()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish() // Close GamePickerActivity
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
