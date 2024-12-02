@@ -28,8 +28,8 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-        val intent = Intent(this, GamePickerActivity::class.java)
-        startActivity(intent)
+        val GameSelectionIntent = Intent(this, ReactionTimeGameActivity::class.java)
+        startActivity(GameSelectionIntent)
     }
 }
 

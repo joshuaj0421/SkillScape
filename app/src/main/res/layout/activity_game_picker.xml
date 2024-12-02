@@ -155,14 +155,4 @@
         </FrameLayout>
 
     </LinearLayout>
-
-    <!-- TextView to show clicked square -->
-    <TextView
-        android:id="@+id/squareClickedText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Click a square"
-        android:textSize="18sp"
-        android:layout_marginTop="32dp"
-        android:gravity="center"/>
 </LinearLayout>
