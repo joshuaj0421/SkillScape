@@ -41,6 +41,8 @@ class GamePickerActivity : AppCompatActivity() {
             startActivity(intent)
         }
         square2.setOnClickListener {
+            val intent = Intent(this, MemorySequenceActivity::class.java)
+            startActivity(intent)
         }
         square3.setOnClickListener {
         }

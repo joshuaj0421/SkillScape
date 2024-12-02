@@ -31,6 +31,10 @@
             android:name=".ReactionTimeGameActivity"
             android:theme="@style/Theme.SkillScape">
         </activity>
+        <activity
+            android:name=".MemorySequenceActivity"
+            android:theme="@style/Theme.SkillScape">
+        </activity>
     </application>
 
 </manifest>
