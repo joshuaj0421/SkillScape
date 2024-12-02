@@ -49,6 +49,8 @@ class GamePickerActivity : AppCompatActivity() {
             startActivity(intent)
         }
         square4.setOnClickListener {
+            val intent = Intent(this, MathGameActivity::class.java)
+            startActivity(intent)
         }
         square5.setOnClickListener {
         }
