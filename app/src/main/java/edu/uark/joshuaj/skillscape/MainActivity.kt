@@ -28,6 +28,8 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        val intent = Intent(this, GamePickerActivity::class.java)
+        startActivity(intent)
     }
 }
 
