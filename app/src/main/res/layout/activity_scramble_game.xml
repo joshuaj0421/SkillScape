@@ -1,0 +1,62 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#E6E8F3"> <!-- Set page background -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="50dp"> <!-- Shift downward -->
+
+        <!-- Scrambled Word Text -->
+        <TextView
+            android:id="@+id/scrambledWordTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="Scrambled Word"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_horizontal" />
+
+        <!-- Guess Input -->
+        <EditText
+            android:id="@+id/guessEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your guess"
+            android:inputType="text"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Submit Guess Button -->
+        <Button
+            android:id="@+id/submitGuessButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit Guess"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Skip Button -->
+        <Button
+            android:id="@+id/skipButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Skip (Lose 30s)"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Status Text -->
+        <TextView
+            android:id="@+id/statusTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unscramble the word!"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_horizontal" />
+
+    </LinearLayout>
+</ScrollView>

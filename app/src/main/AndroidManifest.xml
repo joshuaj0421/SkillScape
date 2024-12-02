@@ -31,6 +31,10 @@
             android:name=".ReactionTimeGameActivity"
             android:theme="@style/Theme.SkillScape">
         </activity>
+        <activity
+            android:name=".ScrambleGameActivity"
+            android:windowSoftInputMode="adjustResize" />
+
     </application>
 
 </manifest>

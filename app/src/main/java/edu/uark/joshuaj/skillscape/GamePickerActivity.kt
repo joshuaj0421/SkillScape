@@ -43,6 +43,8 @@ class GamePickerActivity : AppCompatActivity() {
         square2.setOnClickListener {
         }
         square3.setOnClickListener {
+            val intent = Intent(this, ScrambleGameActivity::class.java)
+            startActivity(intent)
         }
         square4.setOnClickListener {
         }
