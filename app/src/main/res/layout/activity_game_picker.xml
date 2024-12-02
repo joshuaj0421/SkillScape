@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center"
+    android:background="#E6E8F3"> <!-- Set page background color to #E6E8F3 -->
+
+    <!-- Row 1 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_horizontal">
+
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="8dp">
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/image1"
+                android:scaleType="centerCrop"/>
+            <Button
+                android:id="@+id/square1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Reaction"
+                android:textColor="#000000"
+                android:background="@drawable/rounded_button"
+                android:gravity="bottom|center_horizontal"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="8dp">
+            <ImageView
+                android:id="@+id/image2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/image1"
+                android:scaleType="centerCrop"/>
+            <Button
+                android:id="@+id/square2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Memory"
+                android:textColor="#000000"
+                android:background="@drawable/rounded_button"
+                android:gravity="bottom|center_horizontal"/>
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <!-- Row 2 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp"
+        android:gravity="center_horizontal">
+
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="8dp">
+            <ImageView
+                android:id="@+id/image3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/image1"
+                android:scaleType="centerCrop"/>
+            <Button
+                android:id="@+id/square3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="scramble"
+                android:textColor="#000000"
+                android:background="@drawable/rounded_button"
+                android:gravity="bottom|center_horizontal"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="8dp">
+            <ImageView
+                android:id="@+id/image4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/image1"
+                android:scaleType="centerCrop"/>
+            <Button
+                android:id="@+id/square4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="math"
+                android:textColor="#000000"
+                android:background="@drawable/rounded_button"
+                android:gravity="bottom|center_horizontal"/>
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <!-- Row 3 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="8dp">
+            <ImageView
+                android:id="@+id/image5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/image1"
+                android:scaleType="centerCrop"/>
+            <Button
+                android:id="@+id/square5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="estimation"
+                android:textColor="#000000"
+                android:background="@drawable/rounded_button"
+                android:gravity="bottom|center_horizontal"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="8dp">
+            <ImageView
+                android:id="@+id/image6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/image1"
+                android:scaleType="centerCrop"/>
+            <Button
+                android:id="@+id/square6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="card flip"
+                android:textColor="#000000"
+                android:background="@drawable/rounded_button"
+                android:gravity="bottom|center_horizontal"/>
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <!-- TextView to show clicked square -->
+    <TextView
+        android:id="@+id/squareClickedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click a square"
+        android:textSize="18sp"
+        android:layout_marginTop="32dp"
+        android:gravity="center"/>
+</LinearLayout>
