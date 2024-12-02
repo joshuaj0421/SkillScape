@@ -33,26 +33,22 @@ class GamePickerActivity : AppCompatActivity() {
         val square4 = findViewById<Button>(R.id.square4)
         val square5 = findViewById<Button>(R.id.square5)
         val square6 = findViewById<Button>(R.id.square6)
-        val squareClickedText = findViewById<TextView>(R.id.squareClickedText)
 
         // Set click listeners for each square button
         square1.setOnClickListener {
-            squareClickedText.text = "Square 1 clicked"
+            // Start the ReactionTimeGame activity when square 1 is clicked
+            val intent = Intent(this, ReactionTimeGameActivity::class.java)
+            startActivity(intent)
         }
         square2.setOnClickListener {
-            squareClickedText.text = "Square 2 clicked"
         }
         square3.setOnClickListener {
-            squareClickedText.text = "Square 3 clicked"
         }
         square4.setOnClickListener {
-            squareClickedText.text = "Square 4 clicked"
         }
         square5.setOnClickListener {
-            squareClickedText.text = "Square 5 clicked"
         }
         square6.setOnClickListener {
-            squareClickedText.text = "Square 6 clicked"
         }
     }
 
