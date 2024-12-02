@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.SkillScape" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- Define your app theme -->
+    <style name="Theme.SkillScape" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme if needed -->
+    </style>
+
 </resources>
