@@ -1,20 +1,30 @@
 package edu.uark.joshuaj.skillscape
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.SystemClock
+import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import android.widget.FrameLayout
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class CardFlipActivity : AppCompatActivity() {
 
     private lateinit var gridLayout: GridLayout
     private lateinit var scoreTextView: TextView
     private lateinit var timeTextView: TextView
+    private lateinit var viewLeaderboardButton: Button
 
     private var cards = mutableListOf<Card>()
     private var firstSelectedCard: Card? = null
@@ -31,12 +41,49 @@ class CardFlipActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_card_flip)
 
+        viewLeaderboardButton = findViewById(R.id.view_leaderboard_button)
+        viewLeaderboardButton.setOnClickListener {
+            navigateToLeaderboard()
+        }
+
         gridLayout = findViewById(R.id.grid_layout)
         scoreTextView = findViewById(R.id.score_text_view)
         timeTextView = findViewById(R.id.time_text_view)
 
         setupCards()
         startGame()
+    }
+
+    private fun navigateToLeaderboard() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val uid = currentUser?.uid ?: ""
+        val email = currentUser?.email ?: ""
+
+        if (uid.isBlank() || email.isBlank()) {
+            // Handle unauthenticated user or missing email
+            Toast.makeText(this, "Please log in to view the leaderboard.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Extract username from email
+        val username = email.substringBefore("@")
+
+        // Update the leaderboard
+        val leaderboardDAO = LeaderboardDAO()
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                // Update the user's score
+                leaderboardDAO.updateUserScore("card_flip", uid, username, score)
+                // Navigate to the leaderboard activity
+                val intent = Intent(this@CardFlipActivity, LeaderboardActivity::class.java)
+                intent.putExtra("gameId", "card_flip")
+                startActivity(intent)
+            } catch (e: Exception) {
+                // Handle error
+                Log.e("CardFlipActivity", "Error updating user score: ${e.message}")
+                Toast.makeText(this@CardFlipActivity, "Error accessing the leaderboard.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setupCards() {
@@ -219,11 +266,11 @@ class CardFlipActivity : AppCompatActivity() {
         score = finalScore
         updateScore()
 
-        // Optionally, display a message in the scoreTextView indicating the game is completed
-        // For example:
-        // scoreTextView.text = "Final Score: $score"
+        // Show a message to the user
+        Toast.makeText(this, "Congratulations! You won the game!", Toast.LENGTH_LONG).show()
 
-        // If you wish to disable further interaction or reset the game, add additional logic here
+        // Make the "View Leaderboard" button visible
+        findViewById<Button>(R.id.view_leaderboard_button).visibility = View.VISIBLE
     }
 
     override fun onDestroy() {

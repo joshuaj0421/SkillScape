@@ -41,11 +41,21 @@
         android:columnCount="4"
         android:rowCount="4"
         android:useDefaultMargins="true"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/score_timer_layout"
         android:layout_marginTop="16dp">
 
     </GridLayout>
 
-
+    <!-- Button for Leaderboard -->
+    <Button
+        android:id="@+id/view_leaderboard_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Leaderboard"
+        android:layout_below="@id/grid_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:visibility="gone" />
 
 </RelativeLayout>
