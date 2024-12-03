@@ -16,4 +16,6 @@
     <color name="color6">#00FFFF</color> <!-- Cyan -->
     <color name="color7">#FFA500</color> <!-- Orange -->
     <color name="color8">#800080</color> <!-- Purple -->
+    <color name="red">#F44336</color>
+    <color name="transparent">#00000000</color>
 </resources>

@@ -6,8 +6,14 @@ import android.os.CountDownTimer
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import kotlin.random.Random
+import android.animation.ObjectAnimator
+import android.os.Handler
+import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
+import android.view.animation.AnimationUtils
+import android.view.animation.Animation
+import kotlin.random.Random
 
 class MathGameActivity : AppCompatActivity() {
 
@@ -30,6 +36,7 @@ class MathGameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_math_game)
 
+        // Initialize UI components
         timerTextView = findViewById(R.id.timerTextView)
         mathProblemTextView = findViewById(R.id.mathProblemTextView)
         answerEditText = findViewById(R.id.answerEditText)
@@ -42,21 +49,28 @@ class MathGameActivity : AppCompatActivity() {
 
         startGame()
 
+        // Apply animation to the submit button on click
         submitButton.setOnClickListener {
             val userAnswer = answerEditText.text.toString()
             if (userAnswer.isNotEmpty()) {
-                if (userAnswer.toInt() == currentAnswer) {
+                val isCorrect = userAnswer.toInt() == currentAnswer
+                if (isCorrect) {
                     // Play the correct answer sound
                     correctSound.start()
                     score++
                     scoreTextView.text = "Score: $score"
+                    showAnswerFeedback(true) // Show correct answer feedback
                 } else {
                     // Play the incorrect answer sound
                     incorrectSound.start()
+                    showAnswerFeedback(false) // Show incorrect answer feedback
                 }
             }
             answerEditText.text.clear()
             generateNewProblem()
+
+            // Ensure the button stays green
+            submitButton.setBackgroundColor(ContextCompat.getColor(this, R.color.green)) // Set the button color to green
         }
     }
 
@@ -64,10 +78,19 @@ class MathGameActivity : AppCompatActivity() {
         score = 0
         scoreTextView.text = "Score: $score"
 
+        // Start countdown timer
         object : CountDownTimer(gameDuration, tickInterval) {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsLeft = millisUntilFinished / 1000
                 timerTextView.text = "Time Left: $secondsLeft"
+
+                // Animate timer text to make it stand out
+                val scaleX = ObjectAnimator.ofFloat(timerTextView, "scaleX", 1f, 1.2f, 1f)
+                val scaleY = ObjectAnimator.ofFloat(timerTextView, "scaleY", 1f, 1.2f, 1f)
+                scaleX.duration = 500
+                scaleY.duration = 500
+                scaleX.start()
+                scaleY.start()
             }
 
             override fun onFinish() {
@@ -84,7 +107,6 @@ class MathGameActivity : AppCompatActivity() {
         val num1 = Random.nextInt(1, 16) // Random number between 1 and 15
         val num2 = Random.nextInt(1, 16)
 
-        // Ensure num1 is greater than or equal to num2 when subtraction is involved
         val operator = listOf("+", "-", "*", "/").random()
 
         when (operator) {
@@ -93,7 +115,6 @@ class MathGameActivity : AppCompatActivity() {
                 mathProblemTextView.text = "$num1 + $num2"
             }
             "-" -> {
-                // Ensure num1 >= num2 for subtraction
                 if (num1 < num2) {
                     generateNewProblem() // Retry if num1 < num2
                     return
@@ -106,7 +127,6 @@ class MathGameActivity : AppCompatActivity() {
                 mathProblemTextView.text = "$num1 × $num2"
             }
             "/" -> {
-                // Ensure division results in a whole number
                 if (num1 % num2 == 0) {
                     currentAnswer = num1 / num2
                     mathProblemTextView.text = "$num1 ÷ $num2"
@@ -115,6 +135,34 @@ class MathGameActivity : AppCompatActivity() {
                 }
             }
         }
+
+        // Animate math problem text to create visual excitement
+        val fadeIn = ObjectAnimator.ofFloat(mathProblemTextView, "alpha", 0f, 1f)
+        fadeIn.duration = 800
+        fadeIn.start()
+    }
+
+    private fun showAnswerFeedback(isCorrect: Boolean) {
+        val feedbackView = findViewById<View>(R.id.submitButton) // Button used for feedback
+
+        // Set color feedback
+        if (isCorrect) {
+            feedbackView.setBackgroundColor(ContextCompat.getColor(this, R.color.green)) // Correct answer - Green
+            val scaleAnim = AnimationUtils.loadAnimation(this, R.anim.scale) // Scale animation
+            feedbackView.startAnimation(scaleAnim)
+        } else {
+            feedbackView.setBackgroundColor(ContextCompat.getColor(this, R.color.red)) // Incorrect answer - Red
+            val shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake) // Shake animation
+            feedbackView.startAnimation(shakeAnim)
+        }
+
+        // Reset feedback after 1 second
+        Handler().postDelayed({ resetFeedback() }, 1000)
+    }
+
+    private fun resetFeedback() {
+        val feedbackView = findViewById<View>(R.id.submitButton)
+        feedbackView.setBackgroundColor(ContextCompat.getColor(this, R.color.green)) // Reset to green
     }
 
     private fun showFinalScorePopup() {

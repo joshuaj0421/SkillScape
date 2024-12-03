@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.GridLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.ColorUtils
 import kotlin.random.Random
 
 class MemorySequenceActivity : AppCompatActivity() {
@@ -20,12 +21,12 @@ class MemorySequenceActivity : AppCompatActivity() {
     private var score = 0
     private val handler = Handler()
     private var isGameOver = false
+    private val defaultColor = Color.parseColor("#F5F5DC") // Cream color (Beige)
 
     private val buttonHighlightColors = arrayOf(
         Color.RED, Color.GREEN, Color.BLUE, Color.CYAN,
         Color.MAGENTA, Color.YELLOW, Color.LTGRAY, Color.DKGRAY, Color.WHITE
     )
-    private val defaultColor = Color.GRAY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,10 +44,15 @@ class MemorySequenceActivity : AppCompatActivity() {
                 height = 0
                 columnSpec = GridLayout.spec(index % 3, 1, 1f)
                 rowSpec = GridLayout.spec(index / 3, 1, 1f)
-                setMargins(8, 8, 8, 8) // Space between buttons
+                setMargins(16, 16, 16, 16) // Increased space between buttons for premium look
             }
             button.background = createRoundedBackground(defaultColor)
             button.setOnClickListener { onButtonClicked(index) }
+            button.text = " " // Empty text for better aesthetics
+            button.setTextColor(Color.WHITE) // White text color for visibility
+            button.textSize = 22f // Larger text size for a premium feel
+            button.setPadding(0, 0, 0, 0) // No padding for uniform button shape
+            button.isAllCaps = true // Capitalize text for a stronger look
             gridLayout.addView(button)
             button
         }
@@ -59,6 +65,7 @@ class MemorySequenceActivity : AppCompatActivity() {
             shape = GradientDrawable.RECTANGLE
             cornerRadius = 24f // Rounded corners
             setColor(color)
+            setStroke(4, Color.BLACK) // Use a constant black border
         }
     }
 
@@ -77,11 +84,12 @@ class MemorySequenceActivity : AppCompatActivity() {
         sequence.add(Random.nextInt(0, 9))
         userInput.clear()
         currentIndex = 0
-
+        // Disable buttons while the sequence is being shown
+        enableButtons(false)
         // Delay before showing the new sequence
         handler.postDelayed({
             showSequence()
-        }, 1000) // 1 second delay
+        }, 500) // 1 second delay
     }
 
     private fun showSequence() {
@@ -94,6 +102,8 @@ class MemorySequenceActivity : AppCompatActivity() {
         }
         handler.postDelayed({
             resetButtonColors()
+            // Re-enable buttons after the sequence is shown
+            enableButtons(true)
         }, delay)
     }
 
