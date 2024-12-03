@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="32dp"
     android:gravity="center"
-    android:background="#FFFFFF">
+    android:background="#F3F4F6"> <!-- Light gray background for contrast -->
 
     <!-- Score Tracker -->
     <TextView
@@ -16,8 +16,9 @@
         android:text="Score: 0"
         android:textSize="24sp"
         android:layout_gravity="center"
-        android:paddingBottom="16dp"
-        android:textColor="#000000" />
+        android:paddingBottom="32dp"
+        android:textColor="#2D3748"
+        android:typeface="sans" />
 
     <!-- 3x3 Button Grid -->
     <GridLayout
@@ -28,6 +29,5 @@
         android:rowCount="3"
         android:columnCount="3"
         android:layout_gravity="center"
-        android:background="#EEEEEE"
         android:padding="8dp" />
 </LinearLayout>

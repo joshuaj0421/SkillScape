@@ -21,6 +21,7 @@ class ReactionTimeGameActivity : AppCompatActivity() {
     private lateinit var gameText: TextView
     private lateinit var gameTextBold: TextView
     private lateinit var gameLayout: LinearLayout
+    private var gameFrozen: Boolean = false
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +62,19 @@ class ReactionTimeGameActivity : AppCompatActivity() {
                     // User pressed too soon (screen is red)
                     gameTextBold.text = "Too soon! Wait for green"
                     gameText.text = "Try again"
+                    gameFrozen = !gameFrozen
+                    if(!gameFrozen){
+                        // reset round
+                        // Reset the round and run the test again
+                        gameLayout.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_red_light))
+                        gameTextBold.text = "Wait for green"
+                        gameText.text = ""
+                        isRedScreen = true // Set the screen to red
+                        isWaitingForPress = false // Reset waiting for press flag
+
+                        // Restart the test cycle for the next round
+                        reactionTimeTest()
+                    }
                 }
                 true // Event handled
             } else {
@@ -97,14 +111,16 @@ class ReactionTimeGameActivity : AppCompatActivity() {
 
         // Introduce a delay before changing the background to green
         android.os.Handler(mainLooper).postDelayed({
-            // After the delay, change background to green and prompt the user to press
-            gameLayout.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_green_light))
-            gameTextBold.text = "Press now!"  // Set bold text
-            gameText.text = ""  // Set normal text
-            startTime = System.currentTimeMillis()  // Start the timer
+            if(!gameFrozen){
+                // After the delay, change background to green and prompt the user to press
+                gameLayout.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_green_light))
+                gameTextBold.text = "Press now!"  // Set bold text
+                gameText.text = ""  // Set normal text
+                startTime = System.currentTimeMillis()  // Start the timer
 
-            isWaitingForPress = true // Now waiting for the user to press the screen
-            isRedScreen = false // The screen is no longer red
+                isWaitingForPress = true // Now waiting for the user to press the screen
+                isRedScreen = false // The screen is no longer red
+            }
 
         }, timeToSleep.toLong()) // Random delay before green background appears
     }

@@ -2,6 +2,7 @@ package edu.uark.joshuaj.skillscape
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.text.InputType
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +33,7 @@ class EstimationGameActivity : AppCompatActivity() {
         answerEditText = findViewById(R.id.answerEditText)
         submitButton = findViewById(R.id.submitButton)
         rulesTextView = findViewById(R.id.rulesTextView)
+        answerEditText.inputType = InputType.TYPE_CLASS_NUMBER
 
         showRulesPopup()
 
