@@ -2,26 +2,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#E6E8F3"> <!-- Set page background -->
+    android:background="#F9FAFB"> <!-- Light background -->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="24dp"
         android:gravity="center_horizontal"
-        android:layout_marginTop="50dp"> <!-- Shift downward -->
+        android:layout_marginTop="50dp">
 
         <!-- Scrambled Word Text -->
         <TextView
             android:id="@+id/scrambledWordTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
+            android:textSize="28sp"
             android:textStyle="bold"
             android:text="Scrambled Word"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_horizontal" />
+            android:layout_marginBottom="24dp"
+            android:textColor="#2C3E50"
+            android:gravity="center" />
 
         <!-- Guess Input -->
         <EditText
@@ -30,7 +31,11 @@
             android:layout_height="wrap_content"
             android:hint="Enter your guess"
             android:inputType="text"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="20dp"
+            android:padding="12dp"
+            android:background="@drawable/rounded_edittext"
+            android:textColor="#2C3E50"
+            android:textSize="16sp" />
 
         <!-- Submit Guess Button -->
         <Button
@@ -38,7 +43,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Submit Guess"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#3498DB"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/rounded_button" />
 
         <!-- Skip Button -->
         <Button
@@ -46,7 +54,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Skip (Lose 30s)"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#E74C3C"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/rounded_button" />
 
         <!-- Status Text -->
         <TextView
@@ -54,9 +65,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Unscramble the word!"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_horizontal" />
-
+            android:textSize="18sp"
+            android:textColor="#2C3E50"
+            android:layout_marginTop="20dp"
+            android:gravity="center" />
     </LinearLayout>
 </ScrollView>
