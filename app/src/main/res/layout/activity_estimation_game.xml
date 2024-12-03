@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Popup Rule dialog view -->
+    <TextView
+        android:id="@+id/rulesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rules: Guess how many shapes are shown in 3 seconds."
+        android:visibility="gone" />
+
+    <!-- Container for dynamic shapes -->
+    <FrameLayout
+        android:id="@+id/shapesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rulesTextView">
+    </FrameLayout>
+
+    <!-- Question text -->
+    <TextView
+        android:id="@+id/questionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How many ____ were on the screen?"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:visibility="gone"/>
+
+    <!-- User input for answer -->
+    <EditText
+        android:id="@+id/answerEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Enter number"
+        android:layout_below="@id/questionTextView"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
+    <!-- Submit button -->
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:layout_below="@id/answerEditText"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
+</RelativeLayout>

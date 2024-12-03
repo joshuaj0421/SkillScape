@@ -53,8 +53,11 @@ class GamePickerActivity : AppCompatActivity() {
             startActivity(intent)
         }
         square5.setOnClickListener {
+            val intent = Intent(this, EstimationGameActivity::class.java)
+            startActivity(intent)
         }
         square6.setOnClickListener {
+
         }
     }
 

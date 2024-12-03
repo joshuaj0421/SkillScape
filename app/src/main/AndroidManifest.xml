@@ -41,6 +41,10 @@
             android:name=".MemorySequenceActivity"
             android:theme="@style/Theme.SkillScape">
         </activity>
+        <activity
+            android:name=".EstimationGameActivity"
+            android:theme="@style/Theme.SkillScape">
+        </activity>
     </application>
 
 </manifest>
