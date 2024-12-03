@@ -57,7 +57,8 @@ class GamePickerActivity : AppCompatActivity() {
             startActivity(intent)
         }
         square6.setOnClickListener {
-
+            val intent = Intent(this, CardFlipActivity::class.java)
+            startActivity(intent)
         }
     }
 

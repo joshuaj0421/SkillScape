@@ -34,9 +34,7 @@
         <activity
             android:name=".ScrambleGameActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".MathGameActivity"
-            android:theme="@style/Theme.SkillScape" />
+
         <activity
             android:name=".MemorySequenceActivity"
             android:theme="@style/Theme.SkillScape">
@@ -45,6 +43,10 @@
             android:name=".EstimationGameActivity"
             android:theme="@style/Theme.SkillScape">
         </activity>
+
+        <activity android:name=".CardFlipActivity"
+            android:label="Card Flip"
+            android:theme="@style/Theme.SkillScape" />
     </application>
 
 </manifest>
