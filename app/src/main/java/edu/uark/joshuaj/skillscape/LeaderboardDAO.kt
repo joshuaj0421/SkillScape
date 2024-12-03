@@ -21,8 +21,15 @@ class LeaderboardDAO {
         val snapshot = leaderboardRef.get().await()
         if (snapshot.exists()) {
             val existingScore = snapshot.getLong("score")?.toInt() ?: 0
-            if (newScore > existingScore) {
-                // Update with the new high score
+
+            val shouldUpdate = if (gameId == "reaction_time") {
+                newScore < existingScore // Lower score is better for reaction time
+            } else {
+                newScore > existingScore // Higher score is better for other games
+            }
+
+            if (shouldUpdate) {
+                // Update with the new score
                 leaderboardRef.set(LeaderboardEntry(uid, username, newScore)).await()
             }
         } else {
@@ -32,9 +39,15 @@ class LeaderboardDAO {
     }
 
     fun getTopScores(gameId: String, limit: Long = 10): Query {
+        val direction = if (gameId == "reaction_time") {
+            Query.Direction.ASCENDING // Lower scores are better for reaction time
+        } else {
+            Query.Direction.DESCENDING // Higher scores are better for other games
+        }
+
         return db.collection(COLLECTION_NAME).document(gameId)
             .collection("scores")
-            .orderBy("score", Query.Direction.DESCENDING)
+            .orderBy("score", direction)
             .limit(limit)
     }
 
@@ -49,7 +62,13 @@ class LeaderboardDAO {
         val userSnapshot = scoresRef.document(uid).get().await()
         val userScore = userSnapshot.getLong("score")?.toInt() ?: 0
 
-        val allScoresSnapshot = scoresRef.orderBy("score", Query.Direction.DESCENDING).get().await()
+        val direction = if (gameId == "reaction_time") {
+            Query.Direction.ASCENDING
+        } else {
+            Query.Direction.DESCENDING
+        }
+
+        val allScoresSnapshot = scoresRef.orderBy("score", direction).get().await()
         var rank = 0
         var position = 0
 
