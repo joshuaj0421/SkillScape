@@ -39,6 +39,10 @@
             android:name=".MemorySequenceActivity"
             android:theme="@style/Theme.SkillScape">
         </activity>
+
+        <activity android:name=".CardFlipActivity"
+            android:label="Card Flip"
+            android:theme="@style/Theme.SkillScape" />
     </application>
 
 </manifest>
