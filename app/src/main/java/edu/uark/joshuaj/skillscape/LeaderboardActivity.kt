@@ -52,9 +52,13 @@ class LeaderboardActivity : AppCompatActivity() {
     }
 
     private fun navigateToHome() {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val email = currentUser?.email ?: ""
+        val username = email.substringBefore("@")
         val intent = Intent(this, GamePickerActivity::class.java)
         // Clear the back stack
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        intent.putExtra("username", username)
         startActivity(intent)
         // Optionally, call finish() if you want to close the current activity
         finish()
