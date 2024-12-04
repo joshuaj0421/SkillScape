@@ -55,35 +55,9 @@ class CardFlipActivity : AppCompatActivity() {
     }
 
     private fun navigateToLeaderboard() {
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        val uid = currentUser?.uid ?: ""
-        val email = currentUser?.email ?: ""
-
-        if (uid.isBlank() || email.isBlank()) {
-            // Handle unauthenticated user or missing email
-            Toast.makeText(this, "Please log in to view the leaderboard.", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        // Extract username from email
-        val username = email.substringBefore("@")
-
-        // Update the leaderboard
-        val leaderboardDAO = LeaderboardDAO()
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                // Update the user's score
-                leaderboardDAO.updateUserScore("card_flip", uid, username, score)
-                // Navigate to the leaderboard activity
-                val intent = Intent(this@CardFlipActivity, LeaderboardActivity::class.java)
-                intent.putExtra("gameId", "card_flip")
-                startActivity(intent)
-            } catch (e: Exception) {
-                // Handle error
-                Log.e("CardFlipActivity", "Error updating user score: ${e.message}")
-                Toast.makeText(this@CardFlipActivity, "Error accessing the leaderboard.", Toast.LENGTH_SHORT).show()
-            }
-        }
+        val intent = Intent(this@CardFlipActivity, LeaderboardActivity::class.java)
+        intent.putExtra("gameId", "card_flip")
+        startActivity(intent)
     }
 
     private fun setupCards() {
@@ -271,6 +245,33 @@ class CardFlipActivity : AppCompatActivity() {
 
         // Make the "View Leaderboard" button visible
         findViewById<Button>(R.id.view_leaderboard_button).visibility = View.VISIBLE
+
+        // Update the leaderboard
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val uid = currentUser?.uid ?: ""
+        val email = currentUser?.email ?: ""
+
+        if (uid.isBlank() || email.isBlank()) {
+            // Handle unauthenticated user or missing email
+            Toast.makeText(this, "Please log in to submit your score to the leaderboard.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Extract username from email
+        val username = email.substringBefore("@")
+
+        // Update the leaderboard
+        val leaderboardDAO = LeaderboardDAO()
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                // Update the user's score
+                leaderboardDAO.updateUserScore("card_flip", uid, username, score)
+            } catch (e: Exception) {
+                // Handle error
+                Log.e("CardFlipActivity", "Error updating user score: ${e.message}")
+                Toast.makeText(this@CardFlipActivity, "Error updating leaderboard.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onDestroy() {
