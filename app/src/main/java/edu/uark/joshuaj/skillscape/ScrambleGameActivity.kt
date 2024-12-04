@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import android.view.animation.AnimationUtils
 
 class ScrambleGameActivity : AppCompatActivity() {
 
@@ -45,10 +46,12 @@ class ScrambleGameActivity : AppCompatActivity() {
         startGame()
 
         submitGuessButton.setOnClickListener {
+            it.startAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_button))
             checkGuess()
         }
 
         skipButton.setOnClickListener {
+            it.startAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_button))
             skipCurrentWord()
         }
     }
@@ -64,6 +67,7 @@ class ScrambleGameActivity : AppCompatActivity() {
         if (currentWordIndex < words.size) {
             val scrambledWord = scrambleWord(currentWord)
             scrambledWordTextView.text = scrambledWord
+            scrambledWordTextView.startAnimation(AnimationUtils.loadAnimation(this, R.anim.fade_in))
             guessEditText.text.clear()
             statusTextView.text = "Unscramble the word!"
         } else {
