@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
-import android.widget.TextView
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
@@ -26,40 +26,38 @@ class GamePickerActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = "SkillScape"
 
-        // Game picker buttons
-        val square1 = findViewById<Button>(R.id.square1)
-        val square2 = findViewById<Button>(R.id.square2)
-        val square3 = findViewById<Button>(R.id.square3)
-        val square4 = findViewById<Button>(R.id.square4)
-        val square5 = findViewById<Button>(R.id.square5)
-        val square6 = findViewById<Button>(R.id.square6)
+        // Game picker images
+        val image1 = findViewById<ImageView>(R.id.image1)
+        val image2 = findViewById<ImageView>(R.id.image2)
+        val image3 = findViewById<ImageView>(R.id.image3)
+        val image4 = findViewById<ImageView>(R.id.image4)
+        val image5 = findViewById<ImageView>(R.id.image5)
+        val image6 = findViewById<ImageView>(R.id.image6)
 
-        // Set click listeners for each square button
-        square1.setOnClickListener {
-            // Start the ReactionTimeGame activity when square 1 is clicked
-            val intent = Intent(this, ReactionTimeGameActivity::class.java)
-            startActivity(intent)
+        // Set click listeners for each image
+        image1.setOnClickListener {
+            startGameActivity(ReactionTimeGameActivity::class.java)
         }
-        square2.setOnClickListener {
-            val intent = Intent(this, MemorySequenceActivity::class.java)
-            startActivity(intent)
+        image2.setOnClickListener {
+            startGameActivity(MemorySequenceActivity::class.java)
         }
-        square3.setOnClickListener {
-            val intent = Intent(this, ScrambleGameActivity::class.java)
-            startActivity(intent)
+        image3.setOnClickListener {
+            startGameActivity(ScrambleGameActivity::class.java)
         }
-        square4.setOnClickListener {
-            val intent = Intent(this, MathGameActivity::class.java)
-            startActivity(intent)
+        image4.setOnClickListener {
+            startGameActivity(MathGameActivity::class.java)
         }
-        square5.setOnClickListener {
-            val intent = Intent(this, EstimationGameActivity::class.java)
-            startActivity(intent)
+        image5.setOnClickListener {
+            startGameActivity(EstimationGameActivity::class.java)
         }
-        square6.setOnClickListener {
-            val intent = Intent(this, CardFlipActivity::class.java)
-            startActivity(intent)
+        image6.setOnClickListener {
+            startGameActivity(CardFlipActivity::class.java)
         }
+    }
+
+    private fun <T> startGameActivity(activityClass: Class<T>) {
+        val intent = Intent(this, activityClass)
+        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
